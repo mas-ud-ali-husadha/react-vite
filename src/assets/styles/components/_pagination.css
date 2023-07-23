@@ -1,0 +1,15 @@
+.pagination-show-text {
+  @apply text-sm text-paginationColor font-medium;
+}
+
+.pagination-text {
+  @apply text-sm text-paginationButton border border-paginationButton font-medium tracking-wide;
+}
+
+.pagination-button {
+  @apply px-3 py-2;
+}
+
+.pagination-active {
+  @apply bg-primary text-white;
+}

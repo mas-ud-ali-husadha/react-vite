@@ -1,0 +1,15 @@
+.horizontal-menu-item {
+  @apply relative flex flex-col justify-center items-center;
+
+  &.horizontal-menu-item-link {
+    @apply flex justify-center items-center relative;
+  }
+
+}
+&.horizontal-menu-item-text {
+  @apply font-normal whitespace-nowrap tracking-wide;
+}
+
+.horizontal-menu-item-active {
+  @apply bg-white rounded-t-md absolute -bottom-full w-[120%] h-2;
+}
