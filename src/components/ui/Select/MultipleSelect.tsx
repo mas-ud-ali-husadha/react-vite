@@ -32,13 +32,9 @@ const MultiSelect = <T, U>({
     >
       <div className="relative">
         <Combobox.Button className="p-1 min-h-[35px] w-full h-full border border-textSecondary flex justify-between rounded-md">
-          <TransitionGroup className="flex gap-1">
+          <TransitionGroup className="flex gap-1 flex-1 flex-wrap">
             {select.map((item, i) => (
-              <CSSTransition
-                key={String(item)}
-                timeout={300}
-                classNames="test"
-              >
+              <CSSTransition key={String(item)} timeout={300} classNames="test">
                 <div className={`flex gap-0.5 item-center text-white`}>
                   <div
                     className="bg-primary rounded-l py-0.5 px-1 flex items-center"
@@ -58,6 +54,9 @@ const MultiSelect = <T, U>({
               </CSSTransition>
             ))}
           </TransitionGroup>
+          <div className="flex-auto inline-grid ">
+            <input className="border w-full" />
+          </div>
           <div className="flex h-full items-center pl-4 pr-2 my-auto ml-auto">
             <BsSearch />
           </div>

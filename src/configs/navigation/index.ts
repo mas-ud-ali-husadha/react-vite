@@ -22,7 +22,7 @@ const navigationConfig: NavigationItem[] = [
     authority: [],
     subMenu: [
       {
-        key: "setting.item1",
+        key: "user",
         path: "/",
         title: "User",
         type: NAV_ITEM_TYPE_ITEM,

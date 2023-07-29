@@ -13,7 +13,7 @@ const HorizontalMenuItem = ({ id, path, text }: HorizontalMenuItemType) => {
 
   return (
     <div className="horizontal-menu-item ">
-      <NavLink className="horizontal-menu-item-link" to={path} end={id == "setting.item1"}>
+      <NavLink className="horizontal-menu-item-link" to={path} end={id == "setting"}>
         <span
           className={`horizontal-menu-item-text ${classNames({
             "font-semibold": active,

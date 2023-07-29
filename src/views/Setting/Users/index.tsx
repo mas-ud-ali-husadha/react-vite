@@ -1,12 +1,4 @@
-import {
-  Card,
-  ActionButton,
-  Table,
-  MultiSelect,
-  PageTitle,
-  Pagination,
-  Button,
-} from "@/components/ui";
+import { Card, ActionButton, Table, PageTitle, Button } from "@/components/ui";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { BsPlusLg } from "react-icons/bs";
 import Dialog from "./Dialog";
@@ -15,35 +7,6 @@ import { deleteUser, getListUsers } from "@/store/setting/users/action";
 import { ListData } from "@/types/UserTypes";
 import DeleteModal from "@/components/ui/DeleteModal";
 import useFetchData from "@/hooks/useFetchData";
-
-interface filter {
-  id: number;
-  name: string;
-}
-
-const people: filter[] = [
-  { id: 1, name: "Wade Cooper" },
-  { id: 2, name: "Arlene Mccoy" },
-  { id: 3, name: "Devon Webb" },
-  { id: 4, name: "Tom Cook" },
-  { id: 5, name: "Tanya Fox" },
-  { id: 6, name: "Hellen Schmidt" },
-];
-
-const Example = () => {
-  const [selected, setSelected] = useState<number[]>([]);
-
-  return (
-    <MultiSelect<filter, number>
-      data={people}
-      value={(item) => people.find((i) => i.id == item)?.name}
-      label={(item) => item.name}
-      id="id"
-      select={selected}
-      setSelect={(e) => setSelected(e)}
-    />
-  );
-};
 
 const SettingMenu = () => {
   const [dialog, setDialog] = useState({
@@ -61,7 +24,7 @@ const SettingMenu = () => {
 
   const EditData = useRef<ListData>(initialForm);
   const deleteId = useRef<number | null>(null);
-  const { list, totalItems, loading } = useAppSelector((state) => state.users);
+  const { list, loading } = useAppSelector((state) => state.users);
 
   const headers = [
     {
@@ -135,7 +98,7 @@ const SettingMenu = () => {
     } catch (error) {
       console.error("Error fetching users:", error);
     }
-  }, [dispatch]); //
+  }, [dispatch]);
 
   useEffect(() => {
     void fetch();
@@ -145,8 +108,6 @@ const SettingMenu = () => {
     <>
       <PageTitle title="User">
         <div className="md:flex hidden md:flex-row gap-2 items-center">
-          <span>Customer</span>
-          <Example />
           <Button
             icon={BsPlusLg}
             text="Tambah User"
@@ -171,7 +132,6 @@ const SettingMenu = () => {
             />
           )}
         />
-        <Pagination total={totalItems} />
       </Card>
 
       <Dialog

@@ -35,7 +35,7 @@ export const editUser = async (data: ListData) => {
   return response;
 };
 
-export const deleteUser = async (id: ListData) => {
-  const response = await api.delete(`${Users.action}/${String(id)}`);
+export const deleteUser = async (id: number) => {
+  const response = await api.delete(`${Users.action}/${id}`);
   return response;
 };

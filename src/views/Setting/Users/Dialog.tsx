@@ -41,6 +41,7 @@ const defaultValues = {
 
 const Dialog = ({ open, refresh, onClose, editData }: DialogType) => {
   const { id } = editData;
+
   const {
     register,
     handleSubmit,
