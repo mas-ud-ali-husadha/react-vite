@@ -1,4 +1,5 @@
 import { AxiosError } from "axios";
+import toast from "react-hot-toast";
 
 type Error = {
   errors: string;
@@ -12,12 +13,13 @@ const fetchError = (error: AxiosError<Error>, setError: any) => {
       case 422:
         if (data) {
           const listError = data.errors;
-          if (setError) {
+          if (typeof listError == "object") {
             Object.keys(listError).forEach((item) => {
               setError(item, {
                 type: "validation",
                 message: listError[item as any][0],
               });
+              toast.error(listError[item as any][0]);
             });
           }
         }

@@ -48,7 +48,4 @@ export interface ListData {
   email: string;
   name: string;
   password?: string;
-  phone_number: string | null;
-  user_roles_id: "0" | "1" | null;
-  photo?: null;
 }

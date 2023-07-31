@@ -4,47 +4,58 @@ import { User, UserResponse } from "@/types/UserTypes";
 
 interface InitialStateType {
   list: User[];
-  currentPage: number;
-  totalItems: number;
   error: string;
+  params: any;
   filterName: string;
   loading: boolean;
+  total: number;
 }
 
 export const initialState: InitialStateType = {
   list: [],
-  currentPage: 1,
-  totalItems: 0,
+  params: {},
   error: "",
   filterName: "",
   loading: false,
+  total: 0,
 };
 
 export const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    changeParams: (state, action) => {
+      const { key, value } = action.payload;
+      state.params = {
+        ...state.params,
+        [key]: value,
+      };
+    },
+    changePage: (state, action) => {
+      const value = action.payload;
+      state.params.page = value;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getListUsers.pending, (state) => {
         state.loading = true;
       })
       .addCase(getListUsers.rejected, (state, action) => {
-        if (action.payload) {
-          state.error = action.payload.errors[0];
-        } else {
-          state.error = String(action.error.message);
-        }
+        state.loading = false;
+        state.error = String(action.payload);
       })
       .addCase(
         getListUsers.fulfilled,
         (state, action: PayloadAction<UserResponse>) => {
           state.loading = false;
           state.list = action.payload.data.list;
-          state.totalItems = action.payload.data.meta.total;
+          state.total = action.payload.data.meta.total;
         }
       );
   },
 });
+
+export const { changeParams, changePage } = usersSlice.actions;
 
 export default usersSlice.reducer;

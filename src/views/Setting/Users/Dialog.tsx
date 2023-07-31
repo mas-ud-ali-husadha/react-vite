@@ -1,17 +1,11 @@
-import {
-  Button,
-  Form,
-  Input,
-  InputLabel,
-  Modal,
-  Switch,
-} from "@/components/ui";
+import { Button, Form, Input, InputLabel, Modal } from "@/components/ui";
 import useFetchData from "@/hooks/useFetchData";
 import { createUser, editUser } from "@/store/setting/users/action";
 import { ListData } from "@/types/UserTypes";
 import { useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { IoSaveSharp } from "react-icons/io5";
+import { defaultValues } from "./variable";
 
 interface DialogType {
   open: boolean;
@@ -20,24 +14,7 @@ interface DialogType {
   editData: ListData;
 }
 
-const Status = [
-  {
-    label: "Admin",
-    value: 1,
-  },
-  {
-    label: "Kitchen",
-    value: 0,
-  },
-];
 
-const defaultValues = {
-  email: "",
-  name: "",
-  password: "",
-  phone_number: "",
-  user_roles_id: null,
-};
 
 const Dialog = ({ open, refresh, onClose, editData }: DialogType) => {
   const { id } = editData;
@@ -46,18 +23,9 @@ const Dialog = ({ open, refresh, onClose, editData }: DialogType) => {
     register,
     handleSubmit,
     reset,
-    control,
     setError,
     formState: { errors },
-  } = useForm<ListData>({
-    defaultValues: {
-      email: "",
-      name: "",
-      password: "",
-      phone_number: "",
-      user_roles_id: null,
-    },
-  });
+  } = useForm<ListData>();
 
   useEffect(() => {
     if (id) {
@@ -77,8 +45,8 @@ const Dialog = ({ open, refresh, onClose, editData }: DialogType) => {
     },
   });
 
-  const onSubmit = (data: ListData) => {
-    request.fetch(data);
+  const onSubmit = async (data: ListData) => {
+    await request.fetch(data);
   };
 
   return (
@@ -115,18 +83,6 @@ const Dialog = ({ open, refresh, onClose, editData }: DialogType) => {
             placeholder="admin@javacode.landa.id"
           />
         </InputLabel>
-        <InputLabel label="Phone" name="phone_number" errors={errors}>
-          <Input
-            {...register("phone_number", {
-              required: "Phone wajib diisi",
-              pattern: {
-                value: /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
-                message: "Format Phone salah",
-              },
-            })}
-            placeholder="+62"
-          />
-        </InputLabel>
         <InputLabel
           label="Password"
           name="password"
@@ -145,16 +101,7 @@ const Dialog = ({ open, refresh, onClose, editData }: DialogType) => {
             placeholder="Password User"
           />
         </InputLabel>
-        <InputLabel label="Status" name="user_roles_id" errors={errors}>
-          <Controller
-            name="user_roles_id"
-            control={control}
-            rules={{
-              required: "Status wajib diisi",
-            }}
-            render={({ field }) => <Switch {...field} data={Status} />}
-          />
-        </InputLabel>
+
         <div className="flex ml-auto ">
           <Button
             icon={IoSaveSharp}

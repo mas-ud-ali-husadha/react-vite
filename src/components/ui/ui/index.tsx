@@ -18,4 +18,4 @@ export { default as InputLabelVertical } from "./InputLabel/InputLabelVertical";
 export { default as Switch } from "./Switch";
 export { default as SwitchItemProps } from "./Switch";
 export { default as ImageInputBlock } from "./ImageInputBlock";
-export { default as DeleteModal } from "./DeleteModal";
+// export { default as DropdownItem } from "./DownItem";

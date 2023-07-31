@@ -1,28 +1,27 @@
-import { Card, ActionButton, Table, PageTitle, Button } from "@/components/ui";
+import {
+  Card,
+  ActionButton,
+  DeleteModal,
+  Table,
+  PageTitle,
+  Button,
+} from "@/components/ui";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { BsPlusLg } from "react-icons/bs";
 import Dialog from "./Dialog";
 import { useAppDispatch, useAppSelector } from "@/hooks/useAppDispatch";
 import { deleteUser, getListUsers } from "@/store/setting/users/action";
 import { ListData } from "@/types/UserTypes";
-import DeleteModal from "@/components/ui/DeleteModal";
 import useFetchData from "@/hooks/useFetchData";
+import { defaultValues } from "./variable";
 
-const SettingMenu = () => {
+const Users = () => {
   const [dialog, setDialog] = useState({
     modal: false,
     delete: false,
   });
 
-  const initialForm = {
-    id: null,
-    name: "",
-    email: "",
-    phone_number: "",
-    user_roles_id: null,
-  };
-
-  const EditData = useRef<ListData>(initialForm);
+  const EditData = useRef<ListData>(defaultValues);
   const deleteId = useRef<number | null>(null);
   const { list, loading } = useAppSelector((state) => state.users);
 
@@ -44,7 +43,7 @@ const SettingMenu = () => {
   ];
 
   const handleAdd = () => {
-    EditData.current = initialForm;
+    EditData.current = defaultValues;
     setDialog({
       ...dialog,
       modal: true,
@@ -62,14 +61,8 @@ const SettingMenu = () => {
     },
   });
 
-  const handleClickEdit = ({
-    id,
-    name,
-    email,
-    phone_number,
-    user_roles_id,
-  }: ListData) => {
-    const data = { id, name, email, phone_number, user_roles_id };
+  const handleClickEdit = ({ id, name, email }: ListData) => {
+    const data = { id, name, email };
     EditData.current = data;
     setDialog({
       ...dialog,
@@ -85,8 +78,8 @@ const SettingMenu = () => {
     });
   };
 
-  const onSubmit = () => {
-    deleteRequest.fetch(Number(deleteId.current));
+  const onSubmit = async () => {
+    await deleteRequest.fetch(Number(deleteId.current));
   };
 
   const dispatch = useAppDispatch();
@@ -161,4 +154,4 @@ const SettingMenu = () => {
   );
 };
 
-export default SettingMenu;
+export default Users;

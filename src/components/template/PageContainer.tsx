@@ -15,7 +15,7 @@ const PageContainer = ({ children, setting }: PageContainerTyoe) => {
   return (
     <main className=" flex flex-auto flex-col justify-between ">
       <div
-        className={`container mx-auto h-full flex flex-auto flex-col   ${setClass}`}
+        className={`container h-full mx-auto flex flex-auto flex-col ${setClass}`}
       >
         {children}
       </div>
